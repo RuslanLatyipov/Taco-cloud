@@ -3,6 +3,7 @@ package com.foodorder.tacocloud.controller;
 import com.foodorder.tacocloud.model.Ingredient;
 import com.foodorder.tacocloud.model.Taco;
 import com.foodorder.tacocloud.model.TacoOrder;
+import com.foodorder.tacocloud.repository.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +20,15 @@ import java.util.stream.Collectors;
 @SessionAttributes("tacoOrder")
 public class TacoController {
 
+    private final IngredientRepository ingredientRepository;
+
+    public TacoController(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
+    }
+
     @PostMapping()
     public String procesTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
-        if (errors.hasErrors()){
+        if (errors.hasErrors()) {
             return "design";
         }
         tacoOrder.addTaco(taco);
@@ -37,19 +43,7 @@ public class TacoController {
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP),
-                new Ingredient("GRBF", "Ground Beef", Ingredient.Type.PROTEIN),
-                new Ingredient("CARN", "Carnitas", Ingredient.Type.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", Ingredient.Type.VEGGIES),
-                new Ingredient("LETC", "Lettuce", Ingredient.Type.VEGGIES),
-                new Ingredient("CHED", "Cheddar", Ingredient.Type.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE),
-                new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE)
-        );
-
+        List<Ingredient> ingredients = ingredientRepository.findAll();
 
         Ingredient.Type[] types = Ingredient.Type.values();
         for (Ingredient.Type type : types) {
