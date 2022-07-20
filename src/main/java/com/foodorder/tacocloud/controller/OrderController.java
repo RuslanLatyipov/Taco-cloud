@@ -1,7 +1,7 @@
 package com.foodorder.tacocloud.controller;
 
 import com.foodorder.tacocloud.model.TacoOrder;
-import com.foodorder.tacocloud.repository.OrderRepository;
+import com.foodorder.tacocloud.repository.dataJdbc.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;

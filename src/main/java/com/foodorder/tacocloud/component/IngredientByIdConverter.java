@@ -1,15 +1,12 @@
 package com.foodorder.tacocloud.component;
 
 import com.foodorder.tacocloud.model.Ingredient;
-import com.foodorder.tacocloud.repository.IngredientRepository;
+import com.foodorder.tacocloud.repository.dataJdbc.IngredientRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Component
-public class IngredientByIdConverter implements Converter<String,Ingredient> {
+public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
     private final IngredientRepository ingredientRepository;
 

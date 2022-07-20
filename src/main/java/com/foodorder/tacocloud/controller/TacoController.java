@@ -3,7 +3,7 @@ package com.foodorder.tacocloud.controller;
 import com.foodorder.tacocloud.model.Ingredient;
 import com.foodorder.tacocloud.model.Taco;
 import com.foodorder.tacocloud.model.TacoOrder;
-import com.foodorder.tacocloud.repository.IngredientRepository;
+import com.foodorder.tacocloud.repository.dataJdbc.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
