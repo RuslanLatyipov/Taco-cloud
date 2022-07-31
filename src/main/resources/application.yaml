@@ -18,3 +18,11 @@ spring:
             clientId: <facebook client id>
             clientSecret: <facebook client secret>
             scope: email, public_profile
+logging:
+  level:
+   root: WARN
+   org.springframework.security: DEBUG
+
+taco:
+  orders:
+    pageSize: 20
