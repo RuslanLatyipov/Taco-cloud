@@ -1,9 +1,11 @@
 package com.foodorder.tacocloud.controller;
 
 import com.foodorder.tacocloud.model.TacoOrder;
+import com.foodorder.tacocloud.model.User;
 import com.foodorder.tacocloud.repository.dataJpa.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +35,11 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid TacoOrder tacoOrder, Errors errors, SessionStatus sessionStatus) {
+    public String processOrder(@Valid TacoOrder tacoOrder, Errors errors, SessionStatus sessionStatus, @AuthenticationPrincipal User user) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
+        tacoOrder.setUser(user);
         orderRepository.save(tacoOrder);
         log.info("Order save: [Id ={}]", tacoOrder.getId());
         sessionStatus.setComplete();

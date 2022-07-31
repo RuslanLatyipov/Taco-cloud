@@ -10,3 +10,11 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         globally_quoted_identifiers: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: <facebook client id>
+            clientSecret: <facebook client secret>
+            scope: email, public_profile
