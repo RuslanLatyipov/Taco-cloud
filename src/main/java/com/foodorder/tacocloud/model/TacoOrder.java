@@ -11,12 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
 public class TacoOrder implements Serializable {
-    private static final UUID serialVersionUID = UUID.randomUUID();
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

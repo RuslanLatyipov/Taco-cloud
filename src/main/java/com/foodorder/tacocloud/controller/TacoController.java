@@ -3,8 +3,9 @@ package com.foodorder.tacocloud.controller;
 import com.foodorder.tacocloud.model.Ingredient;
 import com.foodorder.tacocloud.model.Taco;
 import com.foodorder.tacocloud.model.TacoOrder;
-import com.foodorder.tacocloud.repository.dataJdbc.IngredientRepository;
+import com.foodorder.tacocloud.repository.dataJpa.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,11 +23,12 @@ public class TacoController {
 
     private final IngredientRepository ingredientRepository;
 
+    @Autowired
     public TacoController(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }
 
-    @PostMapping()
+    @PostMapping
     public String procesTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
         if (errors.hasErrors()) {
             return "design";
@@ -43,13 +45,12 @@ public class TacoController {
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
 
         Ingredient.Type[] types = Ingredient.Type.values();
         for (Ingredient.Type type : types) {
-            filterByType(ingredients, type);
             model.addAttribute(type.toString().toLowerCase(),
-                    filterByType(ingredients, type)
+                    filterByType((List<Ingredient>) ingredients, type)
             );
         }
     }

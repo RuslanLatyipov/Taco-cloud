@@ -1,6 +1,7 @@
 //package com.foodorder.tacocloud.repository.jdbcTemplate;
 //
 //import com.foodorder.tacocloud.model.IngredienRef;
+//import com.foodorder.tacocloud.model.Ingredient;
 //import com.foodorder.tacocloud.model.Taco;
 //import com.foodorder.tacocloud.model.TacoOrder;
 //import org.springframework.asm.Type;
@@ -82,18 +83,20 @@
 //                        orderKey));
 //        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 //
-//        jdbcTemplate.update(preparedStatementCreator,generatedKeyHolder);
+//        jdbcTemplate.update(preparedStatementCreator, generatedKeyHolder);
 //        long tacoId = generatedKeyHolder.getKey().longValue();
 //        taco.setId(tacoId);
-//        saveIngredientRefs(tacoId,taco.getIngredients());
+//        saveIngredientRefs(tacoId, taco.getIngredients());
 //        return tacoId;
 //    }
 //
-//    private void saveIngredientRefs(long tacoId, List <IngredienRef> ingredienRefs){
+//    private void saveIngredientRefs(long tacoId, List<Ingredient> ingredienRefs) {
 //        AtomicInteger i = new AtomicInteger();
-//        ingredienRefs.forEach(ingredient -> {jdbcTemplate.update(
-//                "insert into Ingredient_Ref (ingredient, taco, taco_key) "
-//                        + "values (?, ?, ?)",
-//                ingredient.getIngredient(), tacoId, i.getAndIncrement());});
+//        ingredienRefs.forEach(ingredient -> {
+//            jdbcTemplate.update(
+//                    "insert into Ingredient_Ref (ingredient, taco, taco_key) "
+//                            + "values (?, ?, ?)",
+//                    ingredient.getIngredient(), tacoId, i.getAndIncrement());
+//        });
 //    }
 //}

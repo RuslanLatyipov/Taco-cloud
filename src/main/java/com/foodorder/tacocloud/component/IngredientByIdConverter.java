@@ -1,7 +1,8 @@
 package com.foodorder.tacocloud.component;
 
 import com.foodorder.tacocloud.model.Ingredient;
-import com.foodorder.tacocloud.repository.dataJdbc.IngredientRepository;
+import com.foodorder.tacocloud.repository.dataJpa.IngredientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
     private final IngredientRepository ingredientRepository;
 
+    @Autowired
     public IngredientByIdConverter(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }
